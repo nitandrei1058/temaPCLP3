@@ -45,7 +45,17 @@ def task2(data):
     plt.tight_layout()
     plt.show()
 
+def task3(data):
+    num = data.select_dtypes(include=[int, float]).columns
+    n = len(num)
 
+    _, plot = plt.subplots(n, 1, figsize=(10, n * 2))
+    for i, field in enumerate(num):
+        plot[i].hist(data[field], bins=30, edgecolor='darkblue')
+        plot[i].set_title(f'{field}')
+
+    plt.tight_layout()
+    plt.show()
 
 
 
