@@ -118,7 +118,12 @@ def task7(data):
     plot.bar(['Children', 'Adults'], [surv_c, surv_a])
     plt.show()
 
+def task8(data):
+    data['Age'] = data.groupby(['Pclass', 'Survived'])['Age'].transform(lambda x: x.fillna(x.mean()))
 
+    for field in data.select_dtypes(include=['object']).columns:
+        data[field] = data.groupby('Pclass')[field].transform(lambda x: x.fillna(x.mode()[0]))
+    return data
 
 
 
