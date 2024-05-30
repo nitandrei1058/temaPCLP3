@@ -2,6 +2,7 @@ import pandas as pd
 import matplotlib
 import matplotlib.pyplot as plt
 matplotlib.use('TkAgg')
+import seaborn as sns
 file = 'train.csv'
 
 def task1(data):
@@ -141,11 +142,42 @@ def task9(data):
     plt.tight_layout()
     plt.show()
 
+def task10(data):
+    data['Alone'] = (data['Parch'] + data['SibSp'] == 0).astype(int)
+    plt.hist([data[data['Survived'] == 1]['Alone'], data[data['Survived'] == 0]['Alone']], 
+         bins=2, color=['purple', 'pink'], edgecolor='black')
+    plt.xlabel('Stanga singur, Dreapta nu singur')
+    plt.ylabel('Persoane')
+    plt.xticks([0, 1])
+    plt.show()
+
+    data = data.head(100)
+    sns.catplot(x='Pclass', y='Fare', hue='Survived', data=data, kind='swarm', height=8, aspect=1)
+    plt.show()
 
 
 def main():
     data = pd.read_csv(file)
-    task9(data)
+    while True:
+        print("Task:")
+        input_task = input("1-10 ")
+        switch = {
+            '1': task1,
+            '2': task2,
+            '3': task3,
+            '4': task4,
+            '5': task5,
+            '6': task6,
+            '7': task7,
+            '8': task8,
+            '9': task9,
+            '10': task10
+        }
+        func = switch.get(input_task)
+        if func:
+            func(data)
+        else:
+            break
 
 if __name__ == '__main__':
     main()
