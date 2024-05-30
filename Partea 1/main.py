@@ -125,13 +125,12 @@ def task8(data):
         data[field] = data.groupby('Pclass')[field].transform(lambda x: x.fillna(x.mode()[0]))
     # decomenteaza pentru a salva datele
     # data.to_csv('DATE_TASK8.csv', index=False)
-    return data
 
 # pentru task 9
-def check_title(row):
-    if row['Name'] in ['Mr', 'Don', 'Sir', 'Rev', 'Dr', 'Col', 'Major', 'Capt', 'Jonkheer', 'Countess'] and row['Sex'] == 'female':
+def check_title(person):
+    if person['Name'] in ['Mr', 'Don', 'Sir', 'Rev', 'Dr', 'Col', 'Major', 'Capt', 'Jonkheer', 'Countess'] and person['Sex'] == 'female':
         return False
-    elif row['Title'] in ['Mrs', 'Miss', 'Ms', 'Mlle', 'Lady', 'Mme'] and row['Sex'] == 'male':
+    elif person['Title'] in ['Mrs', 'Miss', 'Ms', 'Mlle', 'Lady', 'Mme'] and person['Sex'] == 'male':
         return False
     return True
     
@@ -148,13 +147,14 @@ def task10(data):
     data['Alone'] = (data['Parch'] + data['SibSp'] == 0).astype(int)
     plt.hist([data[data['Survived'] == 1]['Alone'], data[data['Survived'] == 0]['Alone']], 
          bins=2, color=['purple', 'pink'], edgecolor='black')
+    plt.legend(['Survived', 'Did not survive'])
     plt.xlabel('Stanga singur, Dreapta nu singur')
     plt.ylabel('Persoane')
     plt.xticks([0, 1])
     plt.show()
 
     data = data.head(100)
-    sns.catplot(x='Pclass', y='Fare', hue='Survived', data=data, kind='swarm', height=8, aspect=1)
+    sns.catplot(x='Pclass', y='Fare', hue='Survived', data=data, kind='swarm', height=8, aspect=2)
     plt.show()
 
 
