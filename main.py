@@ -90,6 +90,24 @@ def task5(data):
     plt.xticks(ticks, labels)
     plt.show()
 
+def task6(data):
+    bins = [0, 20, 40, 60, data['Age'].max()]
+    labels = ['[0, 20]', '[21, 40]', '[41, 60]', '[61, max]']
+
+    data['Ages'] = pd.cut(data['Age'], bins=bins, labels=labels)
+
+    data = data[data['Sex'] == 'male']
+    all_men = data['Ages'].value_counts().sort_index()
+
+    data = data[data['Survived'] == 1]
+    survived_men = data['Ages'].value_counts().sort_index()
+
+    percent_men = survived_men / all_men
+    percent_men = percent_men * 100
+    percent_men.plot(kind='bar')
+    plt.xticks(rotation=0)
+    plt.show()
+
 
 
 
