@@ -1,7 +1,6 @@
 import pandas as pd
 import matplotlib
 import matplotlib.pyplot as plt
-import matplotlib.ticker as mticker
 matplotlib.use('TkAgg')
 file = 'train.csv'
 
@@ -125,10 +124,28 @@ def task8(data):
         data[field] = data.groupby('Pclass')[field].transform(lambda x: x.fillna(x.mode()[0]))
     return data
 
+# pentru task 9
+def check_title(row):
+    if row['Name'] in ['Mr', 'Don', 'Sir', 'Rev', 'Dr', 'Col', 'Major', 'Capt', 'Jonkheer', 'Countess'] and row['Sex'] == 'female':
+        return False
+    elif row['Title'] in ['Mrs', 'Miss', 'Ms', 'Mlle', 'Lady', 'Mme'] and row['Sex'] == 'male':
+        return False
+    return True
+    
+def task9(data):
+    data['Title'] = data['Name'].str.extract(' ([A-Za-z]+)\.', expand=False)
+    data['Check_title'] = data.apply(check_title, axis=1)
+    plt.figure(figsize=(20, 10))
+    data['Title'].value_counts().plot(kind='bar')
+    plt.xticks(rotation=0)
+    plt.tight_layout()
+    plt.show()
+
 
 
 def main():
     data = pd.read_csv(file)
+    task9(data)
 
 if __name__ == '__main__':
     main()
