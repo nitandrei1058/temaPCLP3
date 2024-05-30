@@ -108,13 +108,22 @@ def task6(data):
     plt.xticks(rotation=0)
     plt.show()
 
+def task7(data):
+    surv_c = data[data['Age'] < 18]['Survived'].mean() * 100
+    surv_a = data[data['Age'] >= 18]['Survived'].mean() * 100
+    print(f'How many children survived: {surv_c}%')
+    print(f'How many adults survived: {surv_a}%')
+
+    _, plot = plt.subplots()
+    plot.bar(['Children', 'Adults'], [surv_c, surv_a])
+    plt.show()
+
 
 
 
 
 def main():
     data = pd.read_csv(file)
-
 
 if __name__ == '__main__':
     main()
