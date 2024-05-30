@@ -79,6 +79,16 @@ def task4(data):
         print(f'Missing Values: {miss}, %: {miss / len(data_s) * 100}%')
     print('\n')
 
+def task5(data):
+    bins = [0, 20, 40, 60, data['Age'].max()]
+    labels = ['[0, 20]', '[21, 40]', '[41, 60]', '[61, max]']
+    offset = 10
+    ticks = [0 + offset, 20 + offset, 40 + offset, 60 + offset]
+    data['Ages'] = pd.cut(data['Age'], bins=bins, labels=labels)
+
+    plt.hist(data['Age'], bins=bins, edgecolor='darkblue')
+    plt.xticks(ticks, labels)
+    plt.show()
 
 
 
