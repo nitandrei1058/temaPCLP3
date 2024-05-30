@@ -123,6 +123,7 @@ def task8(data):
 
     for field in data.select_dtypes(include=['object']).columns:
         data[field] = data.groupby('Pclass')[field].transform(lambda x: x.fillna(x.mode()[0]))
+    data.to_csv('DATE_TASK8.csv', index=False)
     return data
 
 # pentru task 9
