@@ -57,6 +57,27 @@ def task3(data):
     plt.tight_layout()
     plt.show()
 
+def task4(data):
+    for field in data.columns[data.isnull().any()].tolist():
+       miss = data[field].isnull().sum()
+       print(f'Column: {field}')
+       print(f'Missing Values: {miss}, %: {miss / len(data) * 100}%\n')
+
+    data_s = data[data['Survived'] == 1]
+    print(f'Survived:')
+    for field in data.columns[data.isnull().any()].tolist():
+        miss = data_s[field].isnull().sum()
+        print(f'Column: {field}')
+        print(f'Missing Values: {miss}, %: {miss / len(data_s) * 100}%')
+    print('\n')
+
+    data_s = data[data['Survived'] == 0]
+    print(f'Did not survive:')
+    for field in data.columns[data.isnull().any()].tolist():
+        miss = data_s[field].isnull().sum()
+        print(f'Column: {field}')
+        print(f'Missing Values: {miss}, %: {miss / len(data_s) * 100}%')
+    print('\n')
 
 
 
